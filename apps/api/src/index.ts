@@ -40,7 +40,9 @@ const allowedOrigins = env.CORS_ORIGIN
 
 function isOriginAllowed(origin: string | undefined): boolean {
   if (!origin) return true; // Allow server-to-server or same-origin requests
-  if (origin.startsWith("http://localhost:")) return true;
+  const lowercaseOrigin = origin.toLowerCase();
+  if (lowercaseOrigin.startsWith("http://localhost:") || lowercaseOrigin.startsWith("https://localhost:")) return true;
+  if (lowercaseOrigin.endsWith(".railway.app") || lowercaseOrigin.includes("railway.app")) return true;
   return allowedOrigins.includes(origin);
 }
 
