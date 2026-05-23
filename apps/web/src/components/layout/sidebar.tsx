@@ -30,44 +30,59 @@ export function Sidebar() {
       <div className="flex flex-col gap-[32px] w-full">
 
         {/* Logo - Frame 1618872393 */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           {/* Logo square - Component 1 */}
-          <div className="relative w-10 h-10 rounded-[12px] flex-shrink-0 overflow-hidden bg-[#303030]">
-            {/* Left path */}
-            <div className="absolute bg-white rounded-sm"
-              style={{ left: "15%", right: "39.7%", top: "27.5%", bottom: "23.95%" }} />
-            {/* Right path */}
-            <div className="absolute bg-white rounded-sm"
-              style={{ left: "39.85%", right: "15%", top: "27.5%", bottom: "23.94%" }} />
-            {/* Overlay gradient path */}
-            <div className="absolute left-0 right-0 top-0 bottom-0 opacity-20"
-              style={{ background: "linear-gradient(180deg, rgba(255, 255, 255, 0) -8.5%, rgba(255, 255, 255, 0) 30.21%, #0E1513 80.66%, #0E1513 108.81%)" }} />
+          <div className="relative w-10 h-10 flex-shrink-0 overflow-hidden rounded-[12px] shadow-[0px_4px_12px_rgba(226,60,60,0.15)]">
+            <svg viewBox="0 0 100 100" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="logoBg" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#FFA65E" />
+                  <stop offset="50%" stopColor="#E43F3F" />
+                  <stop offset="100%" stopColor="#820721" />
+                </linearGradient>
+                <linearGradient id="leftRibbon" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#FFFFFF" />
+                  <stop offset="100%" stopColor="#E2E2E2" />
+                </linearGradient>
+                <filter id="foldShadow" x="-20%" y="-20%" width="140%" height="140%">
+                  <feDropShadow dx="-2.5" dy="2.5" stdDeviation="1.8" floodColor="#000000" floodOpacity="0.25" />
+                </filter>
+              </defs>
+              <rect width="100" height="100" rx="30" fill="url(#logoBg)" />
+              <path d="M 50 72 L 72 28" stroke="#FFFFFF" strokeWidth="17" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M 28 28 L 50 72" stroke="url(#leftRibbon)" strokeWidth="17" strokeLinecap="round" strokeLinejoin="round" filter="url(#foldShadow)" />
+            </svg>
           </div>
           
           {/* VedaAI Brand Text */}
           <span
-            className="text-[#303030] font-bold tracking-[-0.06em]"
-            style={{ fontFamily: "'Bricolage Grotesque', sans-serif", fontSize: "28px", lineHeight: "20px" }}
+            className="text-[#303030] font-extrabold tracking-[-0.04em]"
+            style={{ fontFamily: "'Bricolage Grotesque', sans-serif", fontSize: "28px", lineHeight: "1" }}
           >
             VedaAI
           </span>
         </div>
 
-        {/* AI Teacher's Toolkit Call-to-Action - Frame 17 */}
-        <Link href="/toolkit" className="w-full">
+        {/* Create Assignment Call-to-Action - Styled with vibrant glowing border */}
+        <Link href="/assignments/create" className="w-full">
           <button
-            className="w-full h-[42px] flex items-center justify-center gap-2 rounded-[100px] text-white transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
+            className="w-full h-[46px] flex items-center justify-center gap-2 rounded-full text-white transition-all duration-200 hover:opacity-95 active:scale-[0.98] border-[3.5px] border-[#FF5B35]"
             style={{
-              background: "#272727",
-              boxShadow:
-                "0px 16px 48px rgba(255, 255, 255, 0.12), 0px 32px 48px rgba(255, 255, 255, 0.2), inset 0px -1px 3.5px rgba(177, 177, 177, 0.6), inset 0px 0px 34.5px rgba(255, 255, 255, 0.25)",
+              background: "linear-gradient(180deg, #303030 0%, #1D1D1D 100%)",
+              boxShadow: "0px 0px 16px rgba(255, 91, 53, 0.45), inset 0px 1px 1px rgba(255, 255, 255, 0.15)",
             }}
           >
-            <Sparkles className="w-[18.32px] h-[17.32px] text-white fill-white" />
+            <Sparkles className="w-[18px] h-[18px] text-white fill-white animate-pulse" />
             <span
-              style={{ fontFamily: "'Inter', sans-serif", fontWeight: 500, fontSize: "16px", letterSpacing: "-0.04em" }}
+              style={{
+                fontFamily: "'Bricolage Grotesque', sans-serif",
+                fontWeight: 600,
+                fontSize: "16px",
+                lineHeight: "140%",
+                letterSpacing: "-0.03em",
+              }}
             >
-              AI Teacher’s Toolkit
+              Create Assignment
             </span>
           </button>
         </Link>
