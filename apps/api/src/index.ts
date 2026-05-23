@@ -20,6 +20,8 @@ import groupRoutes from "./routes/groups.js";
 import settingsRoutes from "./routes/settings.js";
 import libraryRoutes from "./routes/library.js";
 import { seedLibraryIfEmpty } from "./db/seed-library.js";
+import { generatePaperQueue } from "./queue/generate-paper.queue.js";
+import { AssignmentModel } from "./models/assignment.js";
 
 const app = express();
 const server = http.createServer(app);
@@ -113,6 +115,46 @@ app.use(
 
 app.get("/api/health", (_req, res) => {
   res.json({ status: "ok", timestamp: new Date().toISOString() });
+});
+
+app.get("/api/debug-queue", async (req, res, next) => {
+  try {
+    const assignments = await AssignmentModel.find()
+      .sort({ createdAt: -1 })
+      .limit(10)
+      .lean();
+
+    const jobs = await generatePaperQueue.getJobs([
+      "active",
+      "waiting",
+      "completed",
+      "failed",
+      "delayed",
+    ]);
+
+    const jobsInfo = await Promise.all(
+      jobs.map(async (job) => {
+        const state = await job.getState();
+        return {
+          id: job.id,
+          name: job.name,
+          data: job.data,
+          state,
+          progress: job.progress,
+          failedReason: job.failedReason,
+          timestamp: job.timestamp,
+        };
+      })
+    );
+
+    res.json({
+      success: true,
+      assignments,
+      jobs: jobsInfo,
+    });
+  } catch (err) {
+    next(err);
+  }
 });
 
 app.use("/api/assignments/:id/regenerate", creationLimiter);
