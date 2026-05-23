@@ -35,7 +35,13 @@ if (!fs.existsSync(uploadDir)) {
 // Build allowed origins list from CORS_ORIGIN (supports comma-separated values)
 const allowedOrigins = env.CORS_ORIGIN
   .split(",")
-  .map((o) => o.trim())
+  .map((o) => {
+    let val = o.trim();
+    if (val.endsWith("/")) {
+      val = val.slice(0, -1);
+    }
+    return val;
+  })
   .filter(Boolean);
 
 function isOriginAllowed(origin: string | undefined): boolean {
