@@ -1,6 +1,16 @@
 import { io, Socket } from "socket.io-client";
 
-const WS_URL = process.env.NEXT_PUBLIC_WS_URL || "http://localhost:4000";
+let rawWsUrl = process.env.NEXT_PUBLIC_WS_URL || "http://localhost:4000";
+
+if (rawWsUrl && !rawWsUrl.startsWith("http://") && !rawWsUrl.startsWith("https://") && !rawWsUrl.startsWith("ws://") && !rawWsUrl.startsWith("wss://")) {
+  rawWsUrl = `https://${rawWsUrl}`;
+}
+
+if (rawWsUrl.endsWith("/")) {
+  rawWsUrl = rawWsUrl.slice(0, -1);
+}
+
+const WS_URL = rawWsUrl;
 
 let socket: Socket | null = null;
 

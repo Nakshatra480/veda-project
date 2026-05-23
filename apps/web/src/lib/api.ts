@@ -5,8 +5,17 @@ import type {
   ListAssignmentsQuery,
 } from "@vedaai/shared";
 
-const API_BASE =
-  process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
+let rawApiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
+
+if (rawApiUrl && !rawApiUrl.startsWith("http://") && !rawApiUrl.startsWith("https://")) {
+  rawApiUrl = `https://${rawApiUrl}`;
+}
+
+if (rawApiUrl.endsWith("/")) {
+  rawApiUrl = rawApiUrl.slice(0, -1);
+}
+
+export const API_BASE = rawApiUrl;
 
 interface PaginatedResult {
   items: Assignment[];

@@ -26,9 +26,10 @@ COPY apps/web ./apps/web
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_ENV=production
 
-# We set local host/port during build for API connections if needed (or dynamically at runtime)
-ENV NEXT_PUBLIC_API_URL=http://localhost:4000
-ENV NEXT_PUBLIC_WS_URL=http://localhost:4000
+ARG NEXT_PUBLIC_API_URL
+ENV NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-http://localhost:4000}
+ARG NEXT_PUBLIC_WS_URL
+ENV NEXT_PUBLIC_WS_URL=${NEXT_PUBLIC_WS_URL:-http://localhost:4000}
 
 RUN npm run build --workspace=apps/web
 

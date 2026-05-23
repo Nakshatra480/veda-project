@@ -19,6 +19,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import { API_BASE } from "@/lib/api";
 
 type ActiveTab = "lesson" | "rubric" | "enhance";
 
@@ -257,7 +258,7 @@ export default function ToolkitPage() {
         body = { question: questionText.trim() };
       }
 
-      const apiBase = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
+      const apiBase = API_BASE;
       const response = await fetch(`${apiBase}${endpoint}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
