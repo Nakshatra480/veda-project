@@ -1,0 +1,265 @@
+<USER_REQUEST>
+solve all the issue that you found and make sure that each and every functionality must be production ready and set the styling of the main dasboard as the following one (pixel perfect):
+
+/* 0 State screen */
+
+position: relative;
+width: 1440px;
+height: 780px;
+left: 202px;
+top: 266px;
+
+/* Background/bg - Gradient */
+background: linear-gradient(180deg, #EEEEEE 0%, #DADADA 100%);
+
+
+/* Frame 1984077326 */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+align-items: center;
+padding: 0px;
+gap: 12px;
+isolation: isolate;
+
+position: absolute;
+width: 1100px;
+height: 678px;
+left: 327px;
+top: 90px;
+
+
+
+/* Frame 1984077553 */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+padding: 0px;
+gap: 32px;
+
+margin: 0 auto;
+width: 486px;
+height: 678px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 1;
+z-index: 0;
+
+
+/* Frame 1984077554 */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: center;
+padding: 0px;
+gap: 12px;
+
+width: 486px;
+height: 408px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Illustrations */
+
+width: 300px;
+height: 300px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Illustration found */
+
+position: absolute;
+width: 286.22px;
+height: 240px;
+left: 7px;
+top: 29px;
+
+
+
+/* Background */
+
+position: absolute;
+width: 240px;
+height: 240px;
+left: calc(50% - 240px/2);
+top: calc(50% - 240px/2 - 1px);
+
+/* Gradients/Background */
+background: linear-gradient(179.67deg, #F2F2F2 -15.9%, #EFEFEF 158.68%);
+
+
+/* Page */
+
+position: absolute;
+width: 124.54px;
+height: 155.03px;
+left: 89px;
+top: 63.56px;
+
+
+
+/* Page */
+
+position: absolute;
+width: 124.54px;
+height: 155.03px;
+left: calc(50% - 124.54px/2 + 1.27px);
+top: calc(50% - 155.03px/2 - 8.93px);
+
+/* Neutrals/White */
+background: #FFFFFF;
+/* Shadow */
+box-shadow: 0px 20px 30px rgba(146, 146, 146, 0.19);
+border-radius: 16px;
+
+
+/* Information */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+al
+<truncated 25360 bytes>
+-index: 1;
+
+
+/* Frame 1984077287 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 6px 12px;
+gap: 8px;
+
+width: 157px;
+height: 44px;
+
+/* realistic shadow */
+filter: drop-shadow(0px 16px 48px rgba(0, 0, 0, 0.12)) drop-shadow(0px 32px 48px rgba(0, 0, 0, 0.2));
+border-radius: 12px;
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+flex-grow: 0;
+
+
+/* Frame 1618872412 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 0px;
+gap: 10px;
+
+width: 32px;
+height: 32px;
+
+background: url(30576685_7705305.jpg), #F6F6F6;
+border-radius: 100px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Frame 1984077288 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+gap: 4px;
+
+width: 93px;
+height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* John Doe */
+
+width: 65px;
+height: 19px;
+
+font-family: 'Bricolage Grotesque';
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 19px;
+display: flex;
+align-items: center;
+letter-spacing: -0.04em;
+
+/* Text/Primary */
+color: #303030;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Chevron down */
+
+width: 24px;
+height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Icon */
+
+position: absolute;
+left: 25%;
+right: 25%;
+top: 37.5%;
+bottom: 37.5%;
+
+/* Text/Primary */
+border: 1.5px solid #303030;
+
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-05-23T02:21:27+05:30.
+
+The user's current state is as follows:
+Other open documents:
+- /Users/nakshatrasharma/Desktop/veda project/apps/api/src/models/question-paper.ts (LANGUAGE_TYPESCRIPT)
+</ADDITIONAL_METADATA>
+<USER_SETTINGS_CHANGE>
+The user changed setting `Model Selection` from None to Claude Sonnet 4.6 (Thinking). No need to comment on this change if the user doesn't ask about it. If reporting what model you are, please use a human readable name instead of the exact string.
+</USER_SETTINGS_CHANGE>
