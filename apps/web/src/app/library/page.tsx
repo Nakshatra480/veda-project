@@ -353,29 +353,32 @@ export default function LibraryPage() {
           { label: "Subjects Covered", val: isLoading ? "—" : stats.subjects, icon: GraduationCap, bg: "bg-blue-50", border: "border-blue-100", ic: "text-blue-600" },
           { label: "AI Suggestions", val: "4 New", icon: Sparkles, bg: "bg-purple-50", border: "border-purple-100", ic: "text-purple-600" },
         ].map((stat, i) => (
-          <div key={i} className="bg-white border border-neutral-100 rounded-2xl p-5 flex items-center gap-4 shadow-[0px_4px_16px_rgba(0,0,0,0.03)]">
-            <div className={`w-12 h-12 rounded-xl border flex items-center justify-center flex-shrink-0 ${stat.bg} ${stat.border}`}>
-              <stat.icon className={`w-6 h-6 ${stat.ic}`} />
+          <div 
+            key={i} 
+            className="bg-white border border-neutral-100 rounded-2xl p-3.5 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 shadow-[0px_4px_16px_rgba(0,0,0,0.03)] hover:shadow-md transition-shadow"
+          >
+            <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl border flex items-center justify-center flex-shrink-0 ${stat.bg} ${stat.border}`}>
+              <stat.icon className={`w-5 h-5 sm:w-6 sm:h-6 ${stat.ic}`} />
             </div>
-            <div>
-              <p className="text-2xl font-bold font-bricolage text-[#303030] tracking-tight">{stat.val}</p>
-              <p className="text-xs text-neutral-400 font-medium font-sans">{stat.label}</p>
+            <div className="min-w-0 w-full">
+              <p className="text-xl sm:text-2xl font-bold font-bricolage text-[#303030] tracking-tight truncate leading-tight">{stat.val}</p>
+              <p className="text-[10px] sm:text-xs text-neutral-400 font-medium font-sans truncate leading-none mt-0.5">{stat.label}</p>
             </div>
           </div>
         ))}
       </div>
 
       {/* Filter & Search Bar */}
-      <div className="flex flex-col sm:flex-row items-center gap-3 bg-white border border-neutral-100 shadow-[0px_2px_12px_rgba(0,0,0,0.02)] p-3 rounded-2xl">
+      <div className="flex flex-col sm:flex-row items-center gap-3 bg-white border border-neutral-100 shadow-[0px_2px_12px_rgba(0,0,0,0.02)] p-3 rounded-2xl w-full overflow-hidden">
 
         {/* Type filter tabs */}
-        <div className="flex items-center gap-1 flex-shrink-0">
-          <Filter className="w-4 h-4 text-neutral-400 mr-1" />
+        <div className="flex items-center gap-1 overflow-x-auto w-full sm:w-auto pb-1.5 sm:pb-0 scrollbar-none flex-shrink-0">
+          <Filter className="w-4 h-4 text-neutral-400 mr-1 flex-shrink-0" />
           {(["all", "document", "video", "link", "book"] as ResourceType[]).map((type) => (
             <button
               key={type}
               onClick={() => setActiveType(type)}
-              className={`px-3 py-1.5 rounded-full text-xs font-semibold font-bricolage transition-all capitalize ${
+              className={`px-3 py-1.5 rounded-full text-xs font-semibold font-bricolage transition-all capitalize flex-shrink-0 ${
                 activeType === type
                   ? "bg-[#272727] text-white shadow-sm"
                   : "text-neutral-500 hover:bg-neutral-100"
