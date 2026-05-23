@@ -121,6 +121,8 @@ app.get("/api/health", (_req, res) => {
 app.get("/api/debug-queue", async (req, res) => {
   const result: any = {
     status: "starting",
+    redisUrlAnonymized: env.REDIS_URL.replace(/:[^:@\s]+@/, ":****@"),
+    mongodbUriAnonymized: env.MONGODB_URI.replace(/:[^:@\s]+@/, ":****@"),
     mongodb: "checking",
     redis: "checking",
     queue: "checking",
