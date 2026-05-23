@@ -22,6 +22,7 @@ import libraryRoutes from "./routes/library.js";
 import { seedLibraryIfEmpty } from "./db/seed-library.js";
 import { generatePaperQueue } from "./queue/generate-paper.queue.js";
 import { AssignmentModel } from "./models/assignment.js";
+import { redisConnection } from "./queue/connection.js";
 
 const app = express();
 const server = http.createServer(app);
@@ -117,44 +118,77 @@ app.get("/api/health", (_req, res) => {
   res.json({ status: "ok", timestamp: new Date().toISOString() });
 });
 
-app.get("/api/debug-queue", async (req, res, next) => {
-  try {
-    const assignments = await AssignmentModel.find()
-      .sort({ createdAt: -1 })
-      .limit(10)
-      .lean();
+app.get("/api/debug-queue", async (req, res) => {
+  const result: any = {
+    status: "starting",
+    mongodb: "checking",
+    redis: "checking",
+    queue: "checking",
+  };
 
-    const jobs = await generatePaperQueue.getJobs([
-      "active",
-      "waiting",
-      "completed",
-      "failed",
-      "delayed",
-    ]);
+  // 1. MongoDB Check with Timeout
+  const dbPromise = (async () => {
+    try {
+      const assignments = await AssignmentModel.find()
+        .sort({ createdAt: -1 })
+        .limit(5)
+        .lean();
+      result.mongodb = { success: true, count: assignments.length, assignments };
+    } catch (err) {
+      result.mongodb = { success: false, error: (err as Error).message };
+    }
+  })();
 
-    const jobsInfo = await Promise.all(
-      jobs.map(async (job) => {
-        const state = await job.getState();
-        return {
-          id: job.id,
-          name: job.name,
-          data: job.data,
-          state,
-          progress: job.progress,
-          failedReason: job.failedReason,
-          timestamp: job.timestamp,
-        };
-      })
-    );
+  // 2. Redis Check with Timeout
+  const redisPromise = (async () => {
+    try {
+      const pingRes = await Promise.race([
+        redisConnection.ping(),
+        new Promise<never>((_, reject) => setTimeout(() => reject(new Error("Redis ping timeout")), 2500))
+      ]);
+      result.redis = { success: true, ping: pingRes };
+    } catch (err) {
+      result.redis = { success: false, error: (err as Error).message };
+    }
+  })();
 
-    res.json({
-      success: true,
-      assignments,
-      jobs: jobsInfo,
-    });
-  } catch (err) {
-    next(err);
-  }
+  // 3. Queue Jobs Check with Timeout
+  const queuePromise = (async () => {
+    try {
+      const jobsPromise = generatePaperQueue.getJobs([
+        "active",
+        "waiting",
+        "completed",
+        "failed",
+        "delayed",
+      ]);
+      const jobs = await Promise.race([
+        jobsPromise,
+        new Promise<never>((_, reject) => setTimeout(() => reject(new Error("Queue jobs fetch timeout")), 2500))
+      ]);
+
+      const jobsInfo = await Promise.all(
+        jobs.map(async (job) => {
+          const state = await job.getState().catch(() => "unknown");
+          return {
+            id: job.id,
+            name: job.name,
+            state,
+            failedReason: job.failedReason,
+          };
+        })
+      );
+      result.queue = { success: true, count: jobs.length, jobs: jobsInfo };
+    } catch (err) {
+      result.queue = { success: false, error: (err as Error).message };
+    }
+  })();
+
+  // Wait for all checks with a master timeout of 4 seconds
+  await Promise.all([dbPromise, redisPromise, queuePromise]);
+
+  result.status = "done";
+  res.json(result);
 });
 
 app.use("/api/assignments/:id/regenerate", creationLimiter);
